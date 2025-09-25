@@ -90,7 +90,7 @@ class TestMainFunction:
                     assert "OPENAI_API_KEY" in captured.out
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.workflow.ProposalWorkflow')
+    @patch('proposal_generator.cli.ProposalWorkflow')
     def test_main_successful_execution(self, mock_workflow, tmp_path):
         """Test successful main execution."""
         # Create temporary input file
@@ -123,7 +123,7 @@ class TestMainFunction:
                 assert e.code == 0
 
         # Verify workflow was called correctly
-        mock_workflow.assert_called_once_with("gpt-4")
+        mock_workflow.assert_called_once_with(model_name="gpt-4")
         mock_instance.process_transcript_file.assert_called_once_with(
             file_path=str(input_file),
             output_folder=str(tmp_path),
@@ -131,7 +131,7 @@ class TestMainFunction:
         )
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.workflow.ProposalWorkflow')
+    @patch('proposal_generator.cli.ProposalWorkflow')
     def test_main_workflow_error(self, mock_workflow, tmp_path, capsys):
         """Test main function handling workflow errors."""
         # Create temporary input file
@@ -171,7 +171,7 @@ class TestMainFunction:
             assert "AI Proposal Generator" in captured.out
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.workflow.ProposalWorkflow')
+    @patch('proposal_generator.cli.ProposalWorkflow')
     def test_main_with_custom_model(self, mock_workflow, tmp_path):
         """Test main function with custom AI model."""
         # Create temporary input file
@@ -202,10 +202,10 @@ class TestMainFunction:
                 pass
 
         # Verify workflow was initialized with custom model
-        mock_workflow.assert_called_once_with("gpt-3.5-turbo")
+        mock_workflow.assert_called_once_with(model_name="gpt-3.5-turbo")
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.workflow.ProposalWorkflow')
+    @patch('proposal_generator.cli.ProposalWorkflow')
     def test_main_exception_handling(self, mock_workflow, tmp_path, capsys):
         """Test main function handling unexpected exceptions."""
         # Create temporary input file

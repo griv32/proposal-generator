@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class CustomerInfo(BaseModel):
@@ -9,6 +9,13 @@ class CustomerInfo(BaseModel):
     contact_person: str = Field(..., description="Primary contact person name")
     email: Optional[str] = Field(None, description="Contact email address")
     phone: Optional[str] = Field(None, description="Contact phone number")
+
+    @field_validator('company_name', 'industry', 'contact_person')
+    @classmethod
+    def validate_non_empty_strings(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError('Field cannot be empty')
+        return v
 
 
 class ProjectRequirements(BaseModel):
@@ -26,6 +33,13 @@ class ImplementationPhase(BaseModel):
     activities: List[str] = Field(..., description="Activities in this phase")
     duration_weeks: int = Field(..., description="Duration in weeks (must be numeric)")
     deliverables: List[str] = Field(default_factory=list, description="Phase deliverables")
+
+    @field_validator('duration_weeks')
+    @classmethod
+    def validate_positive_duration(cls, v: int) -> int:
+        if v <= 0:
+            raise ValueError('Duration must be positive')
+        return v
 
 
 class ProposalData(BaseModel):

@@ -1,17 +1,18 @@
 """Test cases for ProposalWorkflow functionality."""
 
-import pytest
 import os
 import tempfile
-from unittest.mock import MagicMock, patch, mock_open
+from unittest.mock import MagicMock, mock_open, patch
 
-from proposal_generator.workflow import ProposalWorkflow
+import pytest
+
 from proposal_generator.models import (
     CustomerInfo,
+    ImplementationPhase,
     ProjectRequirements,
     ProposalData,
-    ImplementationPhase,
 )
+from proposal_generator.workflow import ProposalWorkflow
 
 
 class TestProposalWorkflow:

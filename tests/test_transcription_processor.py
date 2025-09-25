@@ -1,11 +1,12 @@
 """Test cases for TranscriptionProcessor functionality."""
 
-import pytest
 import json
 from unittest.mock import MagicMock, patch
 
-from proposal_generator.transcription_processor import TranscriptionProcessor
+import pytest
+
 from proposal_generator.models import CustomerInfo, ProjectRequirements
+from proposal_generator.transcription_processor import TranscriptionProcessor
 
 
 class TestTranscriptionProcessor:

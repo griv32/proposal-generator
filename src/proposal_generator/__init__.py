@@ -2,8 +2,8 @@
 Proposal Generator - AI-powered tool for converting discovery call transcripts into business proposals.
 """
 
+from .models import CustomerInfo, ImplementationPhase, ProjectRequirements, ProposalData
 from .workflow import ProposalWorkflow
-from .models import CustomerInfo, ProjectRequirements, ProposalData, ImplementationPhase
 
 __version__ = "0.1.0"
 __all__ = [

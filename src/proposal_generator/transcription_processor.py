@@ -1,6 +1,8 @@
-from typing import Dict, Any
-from langchain_openai import ChatOpenAI
+from typing import Any, Dict
+
 from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+
 from .models import CustomerInfo, ProjectRequirements
 
 

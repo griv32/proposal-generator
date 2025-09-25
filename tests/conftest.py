@@ -1,15 +1,16 @@
 """Test configuration and fixtures."""
 
-import pytest
 import os
-from unittest.mock import patch, MagicMock
-from typing import Dict, Any
+from typing import Any, Dict
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 from proposal_generator.models import (
     CustomerInfo,
+    ImplementationPhase,
     ProjectRequirements,
     ProposalData,
-    ImplementationPhase,
 )
 
 

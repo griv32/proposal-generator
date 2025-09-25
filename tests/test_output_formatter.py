@@ -1,19 +1,20 @@
 """Test cases for OutputFormatter functionality."""
 
-import pytest
 import json
-import tempfile
 import os
+import tempfile
 from pathlib import Path
-from unittest.mock import patch, mock_open
+from unittest.mock import mock_open, patch
 
-from proposal_generator.output_formatter import OutputFormatter
+import pytest
+
 from proposal_generator.models import (
     CustomerInfo,
-    ProjectRequirements,
     ImplementationPhase,
+    ProjectRequirements,
     ProposalData,
 )
+from proposal_generator.output_formatter import OutputFormatter
 
 
 class TestOutputFormatter:

@@ -1,10 +1,12 @@
 import os
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
+
 from dotenv import load_dotenv
-from .transcription_processor import TranscriptionProcessor
-from .proposal_generator import ProposalGenerator
-from .output_formatter import OutputFormatter
+
 from .models import ProposalData
+from .output_formatter import OutputFormatter
+from .proposal_generator import ProposalGenerator
+from .transcription_processor import TranscriptionProcessor
 
 
 class ProposalWorkflow:

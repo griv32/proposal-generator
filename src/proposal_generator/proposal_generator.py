@@ -1,7 +1,9 @@
 from typing import List
-from langchain_openai import ChatOpenAI
+
 from langchain.prompts import PromptTemplate
-from .models import CustomerInfo, ProjectRequirements, ProposalData, ImplementationPhase
+from langchain_openai import ChatOpenAI
+
+from .models import CustomerInfo, ImplementationPhase, ProjectRequirements, ProposalData
 
 
 class ProposalGenerator:

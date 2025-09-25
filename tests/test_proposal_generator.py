@@ -1,16 +1,17 @@
 """Test cases for ProposalGenerator functionality."""
 
-import pytest
 import json
 from unittest.mock import MagicMock, patch
 
-from proposal_generator.proposal_generator import ProposalGenerator
+import pytest
+
 from proposal_generator.models import (
     CustomerInfo,
+    ImplementationPhase,
     ProjectRequirements,
     ProposalData,
-    ImplementationPhase,
 )
+from proposal_generator.proposal_generator import ProposalGenerator
 
 
 class TestProposalGenerator:

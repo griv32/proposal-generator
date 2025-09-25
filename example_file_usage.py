@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-from src.proposal_generator import ProposalWorkflow
 import os
 import sys
 from pathlib import Path
+
+from src.proposal_generator import ProposalWorkflow
 
 
 # Example for file-based usage

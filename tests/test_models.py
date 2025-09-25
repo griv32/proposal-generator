@@ -1,13 +1,14 @@
 """Test cases for Pydantic data models."""
 
+from typing import List
+
 import pytest
 from pydantic import ValidationError
-from typing import List
 
 from proposal_generator.models import (
     CustomerInfo,
-    ProjectRequirements,
     ImplementationPhase,
+    ProjectRequirements,
     ProposalData,
 )
 

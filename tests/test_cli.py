@@ -33,12 +33,18 @@ class TestCreateParser:
         """Test optional argument parsing."""
         parser = create_parser()
 
-        args = parser.parse_args([
-            "--input", "transcript.txt",
-            "--output", "./custom_output",
-            "--filename", "custom_proposal",
-            "--model", "gpt-3.5-turbo"
-        ])
+        args = parser.parse_args(
+            [
+                "--input",
+                "transcript.txt",
+                "--output",
+                "./custom_output",
+                "--filename",
+                "custom_proposal",
+                "--model",
+                "gpt-3.5-turbo",
+            ]
+        )
 
         assert args.input == "transcript.txt"
         assert args.output == "./custom_output"
@@ -69,7 +75,7 @@ class TestMainFunction:
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
     def test_main_with_missing_input_file(self, capsys):
         """Test main function with non-existent input file."""
-        with patch('sys.argv', ['proposal-generator', '--input', 'nonexistent.txt']):
+        with patch("sys.argv", ["proposal-generator", "--input", "nonexistent.txt"]):
             with pytest.raises(SystemExit) as exc_info:
                 main()
 
@@ -80,8 +86,8 @@ class TestMainFunction:
     def test_main_without_api_key(self, capsys):
         """Test main function without API key."""
         with patch.dict(os.environ, {}, clear=True):
-            with patch('sys.argv', ['proposal-generator', '--input', 'test.txt']):
-                with patch('os.path.exists', return_value=True):
+            with patch("sys.argv", ["proposal-generator", "--input", "test.txt"]):
+                with patch("os.path.exists", return_value=True):
                     with pytest.raises(SystemExit) as exc_info:
                         main()
 
@@ -90,7 +96,7 @@ class TestMainFunction:
                     assert "OPENAI_API_KEY" in captured.out
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.cli.ProposalWorkflow')
+    @patch("proposal_generator.cli.ProposalWorkflow")
     def test_main_successful_execution(self, mock_workflow, tmp_path):
         """Test successful main execution."""
         # Create temporary input file
@@ -103,19 +109,22 @@ class TestMainFunction:
             "success": True,
             "file_paths": {
                 "markdown": "/path/to/proposal.md",
-                "json": "/path/to/proposal.json"
-            }
+                "json": "/path/to/proposal.json",
+            },
         }
         mock_workflow.return_value = mock_instance
 
         test_args = [
-            'proposal-generator',
-            '--input', str(input_file),
-            '--output', str(tmp_path),
-            '--filename', 'test_proposal'
+            "proposal-generator",
+            "--input",
+            str(input_file),
+            "--output",
+            str(tmp_path),
+            "--filename",
+            "test_proposal",
         ]
 
-        with patch('sys.argv', test_args):
+        with patch("sys.argv", test_args):
             try:
                 main()
             except SystemExit as e:
@@ -127,11 +136,11 @@ class TestMainFunction:
         mock_instance.process_transcript_file.assert_called_once_with(
             file_path=str(input_file),
             output_folder=str(tmp_path),
-            filename='test_proposal'
+            filename="test_proposal",
         )
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.cli.ProposalWorkflow')
+    @patch("proposal_generator.cli.ProposalWorkflow")
     def test_main_workflow_error(self, mock_workflow, tmp_path, capsys):
         """Test main function handling workflow errors."""
         # Create temporary input file
@@ -142,17 +151,19 @@ class TestMainFunction:
         mock_instance = MagicMock()
         mock_instance.process_transcript_file.return_value = {
             "success": False,
-            "error": "Processing failed"
+            "error": "Processing failed",
         }
         mock_workflow.return_value = mock_instance
 
         test_args = [
-            'proposal-generator',
-            '--input', str(input_file),
-            '--output', str(tmp_path)
+            "proposal-generator",
+            "--input",
+            str(input_file),
+            "--output",
+            str(tmp_path),
         ]
 
-        with patch('sys.argv', test_args):
+        with patch("sys.argv", test_args):
             with pytest.raises(SystemExit) as exc_info:
                 main()
 
@@ -162,7 +173,9 @@ class TestMainFunction:
 
     def test_main_version_display(self, capsys):
         """Test version display."""
-        with patch('sys.argv', ['proposal-generator', '--input', 'test.txt', '--version']):
+        with patch(
+            "sys.argv", ["proposal-generator", "--input", "test.txt", "--version"]
+        ):
             with pytest.raises(SystemExit) as exc_info:
                 main()
 
@@ -171,7 +184,7 @@ class TestMainFunction:
             assert "AI Proposal Generator" in captured.out
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.cli.ProposalWorkflow')
+    @patch("proposal_generator.cli.ProposalWorkflow")
     def test_main_with_custom_model(self, mock_workflow, tmp_path):
         """Test main function with custom AI model."""
         # Create temporary input file
@@ -184,18 +197,20 @@ class TestMainFunction:
             "success": True,
             "file_paths": {
                 "markdown": "/path/to/proposal.md",
-                "json": "/path/to/proposal.json"
-            }
+                "json": "/path/to/proposal.json",
+            },
         }
         mock_workflow.return_value = mock_instance
 
         test_args = [
-            'proposal-generator',
-            '--input', str(input_file),
-            '--model', 'gpt-3.5-turbo'
+            "proposal-generator",
+            "--input",
+            str(input_file),
+            "--model",
+            "gpt-3.5-turbo",
         ]
 
-        with patch('sys.argv', test_args):
+        with patch("sys.argv", test_args):
             try:
                 main()
             except SystemExit:
@@ -205,7 +220,7 @@ class TestMainFunction:
         mock_workflow.assert_called_once_with(model_name="gpt-3.5-turbo")
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
-    @patch('proposal_generator.cli.ProposalWorkflow')
+    @patch("proposal_generator.cli.ProposalWorkflow")
     def test_main_exception_handling(self, mock_workflow, tmp_path, capsys):
         """Test main function handling unexpected exceptions."""
         # Create temporary input file
@@ -215,12 +230,9 @@ class TestMainFunction:
         # Mock workflow to raise exception
         mock_workflow.side_effect = Exception("Unexpected error")
 
-        test_args = [
-            'proposal-generator',
-            '--input', str(input_file)
-        ]
+        test_args = ["proposal-generator", "--input", str(input_file)]
 
-        with patch('sys.argv', test_args):
+        with patch("sys.argv", test_args):
             with pytest.raises(SystemExit) as exc_info:
                 main()
 

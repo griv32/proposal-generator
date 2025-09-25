@@ -6,4 +6,10 @@ from .workflow import ProposalWorkflow
 from .models import CustomerInfo, ProjectRequirements, ProposalData, ImplementationPhase
 
 __version__ = "0.1.0"
-__all__ = ["ProposalWorkflow", "CustomerInfo", "ProjectRequirements", "ProposalData", "ImplementationPhase"]
+__all__ = [
+    "ProposalWorkflow",
+    "CustomerInfo",
+    "ProjectRequirements",
+    "ProposalData",
+    "ImplementationPhase",
+]

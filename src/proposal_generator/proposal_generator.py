@@ -11,14 +11,24 @@ class ProposalGenerator:
         self.llm = ChatOpenAI(model_name=model_name)
         self.llm.temperature = 0.2
 
-    def generate_proposal(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> ProposalData:
+    def generate_proposal(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> ProposalData:
         """Generate a complete business proposal."""
 
         # Generate individual components
-        executive_summary = self._generate_executive_summary(customer_info, requirements)
-        what_success_looks_like = self._generate_success_vision(customer_info, requirements)
-        implementation_phases = self._generate_implementation_phases(customer_info, requirements)
-        investment_summary = self._generate_investment_summary(customer_info, requirements)
+        executive_summary = self._generate_executive_summary(
+            customer_info, requirements
+        )
+        what_success_looks_like = self._generate_success_vision(
+            customer_info, requirements
+        )
+        implementation_phases = self._generate_implementation_phases(
+            customer_info, requirements
+        )
+        investment_summary = self._generate_investment_summary(
+            customer_info, requirements
+        )
         roi_analysis = self._generate_roi_analysis(customer_info, requirements)
         next_steps = self._generate_next_steps(customer_info, requirements)
 
@@ -30,10 +40,12 @@ class ProposalGenerator:
             implementation_phases=implementation_phases,
             investment_summary=investment_summary,
             roi_analysis=roi_analysis,
-            next_steps=next_steps
+            next_steps=next_steps,
         )
 
-    def _generate_executive_summary(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> str:
+    def _generate_executive_summary(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> str:
         """Generate executive summary section."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "industry", "scope"],
@@ -50,17 +62,21 @@ class ProposalGenerator:
             - Maintains a confident but not overselling tone
 
             Keep it concise but compelling, around 150-200 words.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            company_name=customer_info.company_name,
-            industry=customer_info.industry,
-            scope=requirements.scope
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                company_name=customer_info.company_name,
+                industry=customer_info.industry,
+                scope=requirements.scope,
+            )
+        )
         return response.content.strip()
 
-    def _generate_success_vision(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> str:
+    def _generate_success_vision(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> str:
         """Generate 'What Success Looks Like' section."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "scope", "deliverables"],
@@ -77,17 +93,22 @@ class ProposalGenerator:
             - Long-term benefits and growth potential
 
             Make it inspiring but realistic. Use bullet points for clarity.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            company_name=customer_info.company_name,
-            scope=requirements.scope,
-            deliverables=", ".join(requirements.key_deliverables) or "Not specified"
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                company_name=customer_info.company_name,
+                scope=requirements.scope,
+                deliverables=", ".join(requirements.key_deliverables)
+                or "Not specified",
+            )
+        )
         return response.content.strip()
 
-    def _generate_implementation_phases(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> List[ImplementationPhase]:
+    def _generate_implementation_phases(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> List[ImplementationPhase]:
         """Generate implementation phases with activities and timelines."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "scope", "timeline", "technical_needs"],
@@ -117,18 +138,22 @@ class ProposalGenerator:
             }}
 
             Ensure duration_weeks are realistic and add up to a reasonable total timeline.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            company_name=customer_info.company_name,
-            scope=requirements.scope,
-            timeline=requirements.timeline,
-            technical_needs=", ".join(requirements.technical_needs) or "None specified"
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                company_name=customer_info.company_name,
+                scope=requirements.scope,
+                timeline=requirements.timeline,
+                technical_needs=", ".join(requirements.technical_needs)
+                or "None specified",
+            )
+        )
 
         try:
             import json
+
             phases_data = json.loads(response.content.strip())
 
             phases = []
@@ -137,7 +162,7 @@ class ProposalGenerator:
                     name=phase_data["name"],
                     activities=phase_data["activities"],
                     duration_weeks=int(phase_data["duration_weeks"]),
-                    deliverables=phase_data.get("deliverables", [])
+                    deliverables=phase_data.get("deliverables", []),
                 )
                 phases.append(phase)
 
@@ -147,25 +172,39 @@ class ProposalGenerator:
             return [
                 ImplementationPhase(
                     name="Phase 1: Discovery & Planning",
-                    activities=["Initial consultation", "Requirements analysis", "Project planning"],
+                    activities=[
+                        "Initial consultation",
+                        "Requirements analysis",
+                        "Project planning",
+                    ],
                     duration_weeks=2,
-                    deliverables=["Project plan", "Requirements document"]
+                    deliverables=["Project plan", "Requirements document"],
                 ),
                 ImplementationPhase(
                     name="Phase 2: Development & Implementation",
                     activities=["Core development", "Integration", "Testing"],
                     duration_weeks=6,
-                    deliverables=["Functional system", "Test results"]
+                    deliverables=["Functional system", "Test results"],
                 ),
                 ImplementationPhase(
                     name="Phase 3: Deployment & Training",
-                    activities=["System deployment", "User training", "Go-live support"],
+                    activities=[
+                        "System deployment",
+                        "User training",
+                        "Go-live support",
+                    ],
                     duration_weeks=2,
-                    deliverables=["Live system", "User documentation", "Training materials"]
-                )
+                    deliverables=[
+                        "Live system",
+                        "User documentation",
+                        "Training materials",
+                    ],
+                ),
             ]
 
-    def _generate_investment_summary(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> str:
+    def _generate_investment_summary(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> str:
         """Generate investment and pricing summary."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "scope", "budget"],
@@ -183,17 +222,21 @@ class ProposalGenerator:
 
             Don't include specific numbers unless budget was mentioned.
             Focus on value and ROI potential.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            company_name=customer_info.company_name,
-            scope=requirements.scope,
-            budget=requirements.budget or "Not specified"
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                company_name=customer_info.company_name,
+                scope=requirements.scope,
+                budget=requirements.budget or "Not specified",
+            )
+        )
         return response.content.strip()
 
-    def _generate_roi_analysis(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> str:
+    def _generate_roi_analysis(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> str:
         """Generate ROI analysis section."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "industry", "scope"],
@@ -211,23 +254,27 @@ class ProposalGenerator:
 
             Use industry-specific insights where possible.
             Be realistic but compelling about ROI potential.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            company_name=customer_info.company_name,
-            industry=customer_info.industry,
-            scope=requirements.scope
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                company_name=customer_info.company_name,
+                industry=customer_info.industry,
+                scope=requirements.scope,
+            )
+        )
         return response.content.strip()
 
-    def _generate_next_steps(self, customer_info: CustomerInfo, requirements: ProjectRequirements) -> List[str]:
+    def _generate_next_steps(
+        self, customer_info: CustomerInfo, requirements: ProjectRequirements
+    ) -> List[str]:
         """Generate next steps for moving forward."""
         basic_next_steps = [
             "Review and approve this proposal",
             "Schedule a project kickoff meeting",
             "Finalize contract terms and timeline",
-            "Begin Phase 1: Discovery & Planning"
+            "Begin Phase 1: Discovery & Planning",
         ]
 
         return basic_next_steps

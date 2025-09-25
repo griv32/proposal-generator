@@ -8,7 +8,7 @@ from proposal_generator.models import (
     CustomerInfo,
     ProjectRequirements,
     ImplementationPhase,
-    ProposalData
+    ProposalData,
 )
 
 
@@ -20,7 +20,7 @@ class TestCustomerInfo:
         customer = CustomerInfo(
             company_name="Test Company",
             industry="Technology",
-            contact_person="John Smith"
+            contact_person="John Smith",
         )
         assert customer.company_name == "Test Company"
         assert customer.industry == "Technology"
@@ -35,7 +35,7 @@ class TestCustomerInfo:
             industry="Manufacturing",
             contact_person="Jane Doe",
             email="jane@acme.com",
-            phone="+1-555-0123"
+            phone="+1-555-0123",
         )
         assert customer.email == "jane@acme.com"
         assert customer.phone == "+1-555-0123"
@@ -43,18 +43,20 @@ class TestCustomerInfo:
     def test_customer_info_missing_required_fields(self):
         """Test CustomerInfo validation with missing required fields."""
         with pytest.raises(ValidationError):
-            CustomerInfo(company_name="Test Corp")  # Missing industry and contact_person
+            CustomerInfo(
+                company_name="Test Corp"
+            )  # Missing industry and contact_person
 
         with pytest.raises(ValidationError):
-            CustomerInfo(industry="Technology")  # Missing company_name and contact_person
+            CustomerInfo(
+                industry="Technology"
+            )  # Missing company_name and contact_person
 
     def test_customer_info_empty_string_validation(self):
         """Test CustomerInfo validation with empty strings."""
         with pytest.raises(ValidationError):
             CustomerInfo(
-                company_name="",
-                industry="Technology",
-                contact_person="John Doe"
+                company_name="", industry="Technology", contact_person="John Doe"
             )
 
 
@@ -68,7 +70,7 @@ class TestProjectRequirements:
             timeline="6 months",
             budget="$200K-$500K",
             technical_needs=["POS upgrade", "Cloud migration"],
-            key_deliverables=["System uptime", "Mobile support"]
+            key_deliverables=["System uptime", "Mobile support"],
         )
         assert requirements.scope == "Modernize legacy systems"
         assert requirements.timeline == "6 months"
@@ -79,8 +81,7 @@ class TestProjectRequirements:
     def test_project_requirements_with_optional_fields(self):
         """Test ProjectRequirements with optional/default fields."""
         requirements = ProjectRequirements(
-            scope="Simple automation project",
-            timeline="3 months"
+            scope="Simple automation project", timeline="3 months"
         )
         assert requirements.budget is None
         assert requirements.technical_needs == []
@@ -92,7 +93,7 @@ class TestProjectRequirements:
             scope="Test project",
             timeline="1 month",
             technical_needs=["Need 1", "Need 2", "Need 3"],
-            key_deliverables=["Deliverable A"]
+            key_deliverables=["Deliverable A"],
         )
         assert isinstance(requirements.technical_needs, list)
         assert isinstance(requirements.key_deliverables, list)
@@ -108,7 +109,7 @@ class TestImplementationPhase:
             name="Phase 1: Discovery",
             activities=["Analysis", "Planning", "Design"],
             duration_weeks=4,
-            deliverables=["Requirements doc", "Project plan"]
+            deliverables=["Requirements doc", "Project plan"],
         )
         assert phase.name == "Phase 1: Discovery"
         assert len(phase.activities) == 3
@@ -122,7 +123,7 @@ class TestImplementationPhase:
             name="Test Phase",
             activities=["Task 1"],
             duration_weeks=8,
-            deliverables=["Output"]
+            deliverables=["Output"],
         )
         assert phase.duration_weeks == 8
 
@@ -132,16 +133,13 @@ class TestImplementationPhase:
                 name="Test Phase",
                 activities=["Task 1"],
                 duration_weeks=-2,
-                deliverables=["Output"]
+                deliverables=["Output"],
             )
 
     def test_implementation_phase_empty_lists(self):
         """Test ImplementationPhase with empty lists."""
         phase = ImplementationPhase(
-            name="Empty Phase",
-            activities=[],
-            duration_weeks=1,
-            deliverables=[]
+            name="Empty Phase", activities=[], duration_weeks=1, deliverables=[]
         )
         assert phase.activities == []
         assert phase.deliverables == []
@@ -154,7 +152,7 @@ class TestProposalData:
         self,
         sample_customer_info: CustomerInfo,
         sample_project_requirements: ProjectRequirements,
-        sample_implementation_phases: List[ImplementationPhase]
+        sample_implementation_phases: List[ImplementationPhase],
     ):
         """Test creating ProposalData with valid nested models."""
         proposal = ProposalData(
@@ -165,7 +163,7 @@ class TestProposalData:
             implementation_phases=sample_implementation_phases,
             investment_summary="Investment details",
             roi_analysis="ROI analysis text",
-            next_steps=["Step 1", "Step 2", "Step 3"]
+            next_steps=["Step 1", "Step 2", "Step 3"],
         )
 
         assert proposal.customer_info.company_name == "Test Corp"
@@ -188,7 +186,7 @@ class TestProposalData:
     def test_proposal_data_with_empty_phases(
         self,
         sample_customer_info: CustomerInfo,
-        sample_project_requirements: ProjectRequirements
+        sample_project_requirements: ProjectRequirements,
     ):
         """Test ProposalData with empty implementation phases."""
         proposal = ProposalData(
@@ -199,14 +197,16 @@ class TestProposalData:
             implementation_phases=[],
             investment_summary="Test investment",
             roi_analysis="Test ROI",
-            next_steps=["Next step"]
+            next_steps=["Next step"],
         )
 
         assert len(proposal.implementation_phases) == 0
         assert proposal.get_total_duration_weeks() == 0
         assert proposal.get_phase_names() == []
 
-    def test_proposal_data_nested_model_validation(self, sample_project_requirements: ProjectRequirements):
+    def test_proposal_data_nested_model_validation(
+        self, sample_project_requirements: ProjectRequirements
+    ):
         """Test ProposalData validation with invalid nested models."""
         # Invalid CustomerInfo should cause ValidationError
         with pytest.raises(ValidationError):
@@ -218,5 +218,5 @@ class TestProposalData:
                 implementation_phases=[],
                 investment_summary="Test",
                 roi_analysis="Test",
-                next_steps=[]
+                next_steps=[],
             )

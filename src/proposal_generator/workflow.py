@@ -32,7 +32,7 @@ class ProposalWorkflow:
         self,
         transcript_text: str,
         output_folder: str = "./outputs",
-        filename: Optional[str] = None
+        filename: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Process transcript text and generate proposal.
@@ -51,7 +51,9 @@ class ProposalWorkflow:
 
             # Extract customer info and requirements
             print("Step 1: Extracting customer information...")
-            customer_info = self.transcription_processor.extract_customer_info(transcript_text)
+            customer_info = self.transcription_processor.extract_customer_info(
+                transcript_text
+            )
             print(f"Extracted info for: {customer_info.company_name}")
 
             print("Step 2: Extracting project requirements...")
@@ -62,8 +64,12 @@ class ProposalWorkflow:
 
             # Generate proposal
             print("Step 3: Generating comprehensive proposal...")
-            proposal_data = self.proposal_generator.generate_proposal(customer_info, requirements)
-            print(f"Generated proposal with {len(proposal_data.implementation_phases)} phases")
+            proposal_data = self.proposal_generator.generate_proposal(
+                customer_info, requirements
+            )
+            print(
+                f"Generated proposal with {len(proposal_data.implementation_phases)} phases"
+            )
 
             # Format and save outputs
             print("Step 4: Formatting and saving outputs...")
@@ -82,22 +88,19 @@ class ProposalWorkflow:
                 "requirements": requirements,
                 "proposal_data": proposal_data,
                 "file_paths": file_paths,
-                "total_duration_weeks": proposal_data.get_total_duration_weeks()
+                "total_duration_weeks": proposal_data.get_total_duration_weeks(),
             }
 
         except Exception as e:
             error_msg = f"Error during processing: {str(e)}"
             print(f"ERROR: {error_msg}")
-            return {
-                "success": False,
-                "error": error_msg
-            }
+            return {"success": False, "error": error_msg}
 
     def process_transcript_file(
         self,
         file_path: str,
         output_folder: str = "./outputs",
-        filename: Optional[str] = None
+        filename: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Process transcript from file and generate proposal.
@@ -117,19 +120,18 @@ class ProposalWorkflow:
 
             # Read transcript file
             print(f"Reading transcript from: {file_path}")
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 transcript_text = f.read().strip()
 
             if not transcript_text:
                 raise ValueError("Transcript file is empty")
 
             # Process the transcript text
-            return self.process_transcript_text(transcript_text, output_folder, filename)
+            return self.process_transcript_text(
+                transcript_text, output_folder, filename
+            )
 
         except Exception as e:
             error_msg = f"Error reading transcript file: {str(e)}"
             print(f"ERROR: {error_msg}")
-            return {
-                "success": False,
-                "error": error_msg
-            }
+            return {"success": False, "error": error_msg}

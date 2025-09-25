@@ -13,15 +13,11 @@ def create_parser() -> argparse.ArgumentParser:
     """Create and configure argument parser."""
     parser = argparse.ArgumentParser(
         description="AI-powered Proposal Generator",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
-        "--input",
-        "-i",
-        required=True,
-        type=str,
-        help="Path to transcript file"
+        "--input", "-i", required=True, type=str, help="Path to transcript file"
     )
 
     parser.add_argument(
@@ -29,14 +25,14 @@ def create_parser() -> argparse.ArgumentParser:
         "-o",
         type=str,
         default="./outputs",
-        help="Output folder path (default: ./outputs)"
+        help="Output folder path (default: ./outputs)",
     )
 
     parser.add_argument(
         "--filename",
         "-f",
         type=str,
-        help="Custom filename prefix (default: generated from company name)"
+        help="Custom filename prefix (default: generated from company name)",
     )
 
     parser.add_argument(
@@ -44,20 +40,14 @@ def create_parser() -> argparse.ArgumentParser:
         "-m",
         type=str,
         default="gpt-4",
-        help="AI model to use (default: gpt-4)"
+        help="AI model to use (default: gpt-4)",
     )
 
     parser.add_argument(
-        "--version",
-        action="store_true",
-        help="Show version information"
+        "--version", action="store_true", help="Show version information"
     )
 
-    parser.add_argument(
-        "--debug",
-        action="store_true",
-        help="Enable debug output"
-    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug output")
 
     return parser
 
@@ -88,9 +78,7 @@ def main() -> None:
 
     try:
         # Initialize workflow
-        workflow = ProposalWorkflow(
-            model_name=args.model
-        )
+        workflow = ProposalWorkflow(model_name=args.model)
 
         print("Starting proposal generation...")
         print(f"Input file: {args.input}")
@@ -98,9 +86,7 @@ def main() -> None:
 
         # Process transcript
         result = workflow.process_transcript_file(
-            file_path=args.input,
-            output_folder=args.output,
-            filename=args.filename
+            file_path=args.input, output_folder=args.output, filename=args.filename
         )
 
         if result["success"]:
@@ -111,7 +97,7 @@ def main() -> None:
 
             # Show summary
             if args.debug:
-                customer = result['customer_info']
+                customer = result["customer_info"]
                 print(f"\nSummary:")
                 print(f"  - Company: {customer.company_name}")
                 print(f"  - Industry: {customer.industry}")
@@ -129,6 +115,7 @@ def main() -> None:
         print(f"\nUnexpected error: {str(e)}")
         if args.debug:
             import traceback
+
             traceback.print_exc()
         sys.exit(1)
 

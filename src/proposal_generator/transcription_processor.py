@@ -38,7 +38,7 @@ class TranscriptionProcessor:
             }}
 
             If any information is not clearly mentioned, use your best judgment based on context.
-            """
+            """,
         )
 
         response = self.llm.invoke(prompt_template.format(transcript=transcript))
@@ -51,7 +51,7 @@ class TranscriptionProcessor:
             response_text = response.content.strip()
 
             # Extract JSON from response if it's wrapped in text
-            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+            json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
             if json_match:
                 json_text = json_match.group(0)
             else:
@@ -70,7 +70,9 @@ class TranscriptionProcessor:
             print(f"DEBUG: AI Response was: {response.content[:200]}...")
             raise ValueError(f"Failed to parse customer information: {str(e)}")
 
-    def extract_project_requirements(self, transcript: str, customer_info: CustomerInfo) -> ProjectRequirements:
+    def extract_project_requirements(
+        self, transcript: str, customer_info: CustomerInfo
+    ) -> ProjectRequirements:
         """Extract project requirements from transcript."""
         prompt_template = PromptTemplate(
             input_variables=["transcript", "company_name"],
@@ -98,13 +100,14 @@ class TranscriptionProcessor:
 
             Focus on what the client actually needs and mentioned during the call.
             Be specific and actionable in your extraction.
-            """
+            """,
         )
 
-        response = self.llm.invoke(prompt_template.format(
-            transcript=transcript,
-            company_name=customer_info.company_name
-        ))
+        response = self.llm.invoke(
+            prompt_template.format(
+                transcript=transcript, company_name=customer_info.company_name
+            )
+        )
 
         try:
             import json
@@ -113,7 +116,7 @@ class TranscriptionProcessor:
             response_text = response.content.strip()
 
             # Extract JSON from response if it's wrapped in text
-            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+            json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
             if json_match:
                 json_text = json_match.group(0)
             else:

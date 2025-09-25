@@ -8,6 +8,7 @@ import os
 import sys
 from pathlib import Path
 
+
 def show_welcome():
     print("🚀 AI Proposal Generator - Interactive Setup")
     print("=" * 50)
@@ -44,6 +45,7 @@ def show_welcome():
     else:
         print("✅ OPENAI_API_KEY is configured!")
 
+
 def show_setup_instructions():
     print("\n📋 Permanent Setup Instructions:")
     print("=" * 50)
@@ -62,6 +64,7 @@ def show_setup_instructions():
     print("    set OPENAI_API_KEY=your_key_here")
     print("    # Or use System Properties > Environment Variables")
 
+
 def show_example_menu():
     print("\n🎯 Choose an example to run:")
     print("=" * 30)
@@ -77,6 +80,7 @@ def show_example_menu():
             print("\n🔄 Running text-based example...")
             try:
                 import example_usage
+
                 example_usage.main()
             except ImportError:
                 print("❌ Could not import example_usage module")
@@ -88,6 +92,7 @@ def show_example_menu():
             print("\n🔄 Running file-based example...")
             try:
                 import example_file_usage
+
                 example_file_usage.main()
             except ImportError:
                 print("❌ Could not import example_file_usage module")
@@ -106,6 +111,7 @@ def show_example_menu():
         else:
             print("❌ Invalid choice. Please enter 1-4.")
 
+
 def show_usage_guide():
     print("\n📖 Usage Guide")
     print("=" * 50)
@@ -119,16 +125,22 @@ def show_usage_guide():
 
     print("\n2. Command Line Interface:")
     print("   python -m src.proposal_generator.cli --input transcript.txt")
-    print("   python -m src.proposal_generator.cli --input transcript.txt --output ./my_outputs")
-    print("   python -m src.proposal_generator.cli --input transcript.txt --filename custom")
+    print(
+        "   python -m src.proposal_generator.cli --input transcript.txt --output ./my_outputs"
+    )
+    print(
+        "   python -m src.proposal_generator.cli --input transcript.txt --filename custom"
+    )
 
     print("\n3. Direct Python Usage:")
-    print("""
+    print(
+        """
    from src.proposal_generator import ProposalWorkflow
 
    workflow = ProposalWorkflow()
    result = workflow.process_transcript_file('transcript.txt')
-   """)
+   """
+    )
 
     print("\n⚙️  Available CLI Options:")
     print("   --input, -i     : Path to transcript file (required)")
@@ -137,6 +149,7 @@ def show_usage_guide():
     print("   --model, -m     : AI model to use (default: gpt-4)")
     print("   --debug         : Enable debug output")
     print("   --version       : Show version information")
+
 
 def main():
     """Main interactive setup function."""
@@ -150,6 +163,7 @@ def main():
     except Exception as e:
         print(f"\n❌ Unexpected error: {str(e)}")
         print("Please check your setup and try again.")
+
 
 if __name__ == "__main__":
     main()

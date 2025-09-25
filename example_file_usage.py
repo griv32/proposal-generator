@@ -5,6 +5,7 @@ import os
 import sys
 from pathlib import Path
 
+
 # Example for file-based usage
 def check_requirements():
     """Check if all requirements are met."""
@@ -31,6 +32,7 @@ def check_requirements():
         print(f"✅ Sample transcript file exists: {sample_file}")
 
     return True
+
 
 def create_sample_transcript_file(file_path):
     """Create a sample transcript file."""
@@ -79,8 +81,9 @@ Michael: Perfect. Looking forward to seeing how you can help us transform our in
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     # Write sample content
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         f.write(sample_content)
+
 
 def main():
     """Run the file-based example with comprehensive error handling."""
@@ -103,7 +106,7 @@ def main():
         result = workflow.process_transcript_file(
             file_path=transcript_file,
             output_folder="./outputs",
-            filename="retailmax_proposal"
+            filename="retailmax_proposal",
         )
 
         if result["success"]:
@@ -117,8 +120,8 @@ def main():
             print(f"   • JSON: {result['file_paths']['json']}")
 
             # Show detailed summary
-            customer = result['customer_info']
-            requirements = result['requirements']
+            customer = result["customer_info"]
+            requirements = result["requirements"]
 
             print(f"\n📊 Proposal Summary:")
             print(f"   • Company: {customer.company_name}")
@@ -135,15 +138,17 @@ def main():
 
             # Show phase breakdown
             print(f"\n📋 Implementation Phases:")
-            for i, phase in enumerate(result['proposal_data'].implementation_phases, 1):
+            for i, phase in enumerate(result["proposal_data"].implementation_phases, 1):
                 print(f"   {i}. {phase.name} ({phase.duration_weeks} weeks)")
                 for activity in phase.activities[:2]:  # Show first 2 activities
                     print(f"      • {activity}")
                 if len(phase.activities) > 2:
-                    print(f"      • ... and {len(phase.activities) - 2} more activities")
+                    print(
+                        f"      • ... and {len(phase.activities) - 2} more activities"
+                    )
 
             print(f"\n✅ Next Steps:")
-            for i, step in enumerate(result['proposal_data'].next_steps, 1):
+            for i, step in enumerate(result["proposal_data"].next_steps, 1):
                 print(f"   {i}. {step}")
 
         else:
@@ -162,6 +167,7 @@ def main():
         print(f"   • Verify you have sufficient OpenAI API credits")
         print(f"   • Try running the example again")
 
+
 def show_usage_guide():
     """Show usage guide and tips."""
     print("\n" + "=" * 50)
@@ -175,10 +181,15 @@ def show_usage_guide():
     print("  python example_usage.py")
 
     print("\nCLI Usage:")
-    print("  python -m src.proposal_generator.cli --input transcript.txt --output ./outputs")
+    print(
+        "  python -m src.proposal_generator.cli --input transcript.txt --output ./outputs"
+    )
 
     print("\nCustom Usage:")
-    print("  python -m src.proposal_generator.cli --input transcript.txt --filename custom_name --model gpt-3.5-turbo")
+    print(
+        "  python -m src.proposal_generator.cli --input transcript.txt --filename custom_name --model gpt-3.5-turbo"
+    )
+
 
 if __name__ == "__main__":
     main()

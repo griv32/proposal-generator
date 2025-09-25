@@ -9,7 +9,7 @@ from proposal_generator.models import (
     CustomerInfo,
     ProjectRequirements,
     ProposalData,
-    ImplementationPhase
+    ImplementationPhase,
 )
 
 
@@ -17,9 +17,7 @@ from proposal_generator.models import (
 def sample_customer_info() -> CustomerInfo:
     """Sample customer information for testing."""
     return CustomerInfo(
-        company_name="Test Corp",
-        industry="Technology",
-        contact_person="John Doe"
+        company_name="Test Corp", industry="Technology", contact_person="John Doe"
     )
 
 
@@ -33,13 +31,13 @@ def sample_project_requirements() -> ProjectRequirements:
         technical_needs=[
             "POS system upgrade",
             "Inventory management automation",
-            "Real-time data visibility"
+            "Real-time data visibility",
         ],
         key_deliverables=[
             "99.9% system uptime",
             "Mobile payment capabilities",
-            "PCI DSS compliance"
-        ]
+            "PCI DSS compliance",
+        ],
     )
 
 
@@ -51,14 +49,14 @@ def sample_implementation_phases() -> list:
             name="Phase 1: Discovery & Planning",
             activities=["Requirements analysis", "System design", "Project planning"],
             duration_weeks=4,
-            deliverables=["Requirements document", "System design", "Project plan"]
+            deliverables=["Requirements document", "System design", "Project plan"],
         ),
         ImplementationPhase(
             name="Phase 2: Implementation",
             activities=["System development", "Testing", "Integration"],
             duration_weeks=8,
-            deliverables=["Working system", "Test results"]
-        )
+            deliverables=["Working system", "Test results"],
+        ),
     ]
 
 
@@ -66,7 +64,7 @@ def sample_implementation_phases() -> list:
 def sample_proposal_data(
     sample_customer_info: CustomerInfo,
     sample_project_requirements: ProjectRequirements,
-    sample_implementation_phases: list
+    sample_implementation_phases: list,
 ) -> ProposalData:
     """Complete sample proposal data for testing."""
     return ProposalData(
@@ -77,7 +75,7 @@ def sample_proposal_data(
         implementation_phases=sample_implementation_phases,
         investment_summary="Investment of $200K-$500K for comprehensive modernization.",
         roi_analysis="Expected ROI within 18 months through efficiency gains.",
-        next_steps=["Review proposal", "Schedule kickoff", "Begin discovery"]
+        next_steps=["Review proposal", "Schedule kickoff", "Begin discovery"],
     )
 
 
@@ -104,7 +102,7 @@ def mock_openai_customer_response() -> Dict[str, Any]:
         "industry": "Technology",
         "contact_person": "John Doe",
         "email": "john@testcorp.com",
-        "phone": None
+        "phone": None,
     }
 
 
@@ -116,7 +114,7 @@ def mock_openai_requirements_response() -> Dict[str, Any]:
         "timeline": "6 months",
         "budget": "$300,000",
         "technical_needs": ["POS system upgrade", "Security improvements"],
-        "key_deliverables": ["99% uptime", "Modern systems"]
+        "key_deliverables": ["99% uptime", "Modern systems"],
     }
 
 

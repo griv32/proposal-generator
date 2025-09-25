@@ -3,6 +3,7 @@
 from src.proposal_generator import ProposalWorkflow
 import os
 
+
 # Example transcript text
 def get_sample_transcript():
     """Sample transcript for demonstration."""
@@ -36,6 +37,7 @@ def get_sample_transcript():
         Next steps: We'll prepare a detailed proposal and schedule a follow-up meeting early next week.
         """
 
+
 def main():
     """Run the text-based example."""
     print("AI Proposal Generator - Text Example")
@@ -55,7 +57,7 @@ def main():
         result = workflow.process_transcript_text(
             transcript_text=get_sample_transcript(),
             output_folder="./outputs",
-            filename="techcorp_example"
+            filename="techcorp_example",
         )
 
         if result["success"]:
@@ -65,7 +67,7 @@ def main():
             print(f"  - JSON: {result['file_paths']['json']}")
 
             # Show summary
-            customer = result['customer_info']
+            customer = result["customer_info"]
             print(f"\nGenerated proposal for:")
             print(f"  - Company: {customer.company_name}")
             print(f"  - Industry: {customer.industry}")

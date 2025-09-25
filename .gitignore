@@ -1,0 +1,214 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# UV
+.venv/
+# Note: uv.lock is intentionally tracked for reproducible builds
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific - Generated output folders
+output/
+outputs/
+examples/
+proposals/
+my-proposals/
+myProposals/
+*/proposals/
+client_proposals/
+generated_proposals/
+*.log
+
+# Generated proposal files (but keep sample_data)
+proposal_*.md
+proposal_*.json
+*_proposal.md
+*_proposal.json
+
+# Keep sample data but ignore generated examples
+!sample_data/
+
+# Temporary files
+*.tmp
+*.temp
+
+# API Keys and Environment Files - CRITICAL SECURITY
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+.env.*
+!.env.example
+
+# Comprehensive API Key Protection
+# OpenAI API Keys
+*openai*key*
+*openai*api*
+*sk-proj-*
+*sk-*
+*OPENAI_API_KEY*
+openai_key.txt
+openai-key.txt
+api_key.txt
+api-key.txt
+apikey.txt
+
+# Other common API key files
+secrets.txt
+secrets.json
+secrets.yaml
+secrets.yml
+keys.txt
+keys.json
+credentials.txt
+credentials.json
+config/secrets.*
+config/keys.*
+config/credentials.*
+
+# AWS/Cloud credentials
+.aws/credentials
+.aws/config
+gcp-credentials.json
+azure-credentials.json
+
+# Database connection strings (may contain passwords)
+database.url
+db.env
+*connection*string*
+
+# SSH Keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.pub
+!*.pub.example
+
+# Token files
+*token*.txt
+*token*.json
+*bearer*.txt
+*jwt*.txt
+access_token.*
+refresh_token.*
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Documentation
+docs/_build/
+
+# User-generated content
+my_transcript.txt
+transcript*.txt
+discovery_call*.txt
+user_transcript*.txt
+test_transcript*.txt
+# Keep the official sample data
+!sample_data/discovery_call_transcript.txt
+
+# Backup files
+*.bak
+*.backup
+
+# User's custom output directories
+output*/
+generated*/
+test_output*/
+demo_proposals/
+client*/
+customer*/
+
+# Runtime and debug files
+debug.log
+error.log
+app.log
+*.log.*
+debug_*.txt
+
+# Temporary test files created during development
+temp_*.py
+test_*.py.tmp
+scratch_*.py
+playground_*.py
+
+# User configuration overrides
+config_local.py
+settings_local.py
+local_config.json
+
+# Development database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache directories
+.cache/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/

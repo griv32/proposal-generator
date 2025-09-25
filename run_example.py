@@ -6,7 +6,6 @@ This script helps users get started quickly.
 
 import os
 import sys
-from pathlib import Path
 
 
 def show_welcome():
@@ -88,7 +87,7 @@ def show_example_menu():
                 print(f"❌ Error running text example: {str(e)}")
             break
 
-        elif choice == "2":
+        if choice == "2":
             print("\n🔄 Running file-based example...")
             try:
                 import example_file_usage
@@ -100,16 +99,15 @@ def show_example_menu():
                 print(f"❌ Error running file example: {str(e)}")
             break
 
-        elif choice == "3":
+        if choice == "3":
             show_usage_guide()
             break
 
-        elif choice == "4":
+        if choice == "4":
             print("👋 Goodbye!")
             break
 
-        else:
-            print("❌ Invalid choice. Please enter 1-4.")
+        print("❌ Invalid choice. Please enter 1-4.")
 
 
 def show_usage_guide():

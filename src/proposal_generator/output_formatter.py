@@ -1,7 +1,6 @@
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict
 
 from jinja2 import Template
 
@@ -72,7 +71,7 @@ class OutputFormatter:
         proposal_data: ProposalData,
         output_folder: str = "./outputs",
         filename: str = None,
-    ) -> Dict[str, str]:
+    ) -> dict[str, str]:
         """Save both Markdown and JSON outputs to files."""
         # Create output folder if it doesn't exist
         Path(output_folder).mkdir(parents=True, exist_ok=True)

@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -26,10 +26,10 @@ class ProjectRequirements(BaseModel):
     scope: str = Field(..., description="Project scope and objectives")
     timeline: str = Field(..., description="Expected project timeline")
     budget: Optional[str] = Field(None, description="Budget range or constraints")
-    technical_needs: List[str] = Field(
+    technical_needs: list[str] = Field(
         default_factory=list, description="Technical requirements"
     )
-    key_deliverables: List[str] = Field(
+    key_deliverables: list[str] = Field(
         default_factory=list, description="Main project deliverables"
     )
 
@@ -38,9 +38,9 @@ class ImplementationPhase(BaseModel):
     """Individual phase of project implementation."""
 
     name: str = Field(..., description="Phase name")
-    activities: List[str] = Field(..., description="Activities in this phase")
+    activities: list[str] = Field(..., description="Activities in this phase")
     duration_weeks: int = Field(..., description="Duration in weeks (must be numeric)")
-    deliverables: List[str] = Field(
+    deliverables: list[str] = Field(
         default_factory=list, description="Phase deliverables"
     )
 
@@ -59,12 +59,12 @@ class ProposalData(BaseModel):
     requirements: ProjectRequirements = Field(..., description="Project requirements")
     executive_summary: str = Field(..., description="Executive summary of the proposal")
     what_success_looks_like: str = Field(..., description="Vision of project success")
-    implementation_phases: List[ImplementationPhase] = Field(
+    implementation_phases: list[ImplementationPhase] = Field(
         ..., description="Project phases"
     )
     investment_summary: str = Field(..., description="Investment and pricing summary")
     roi_analysis: str = Field(..., description="Return on investment analysis")
-    next_steps: List[str] = Field(
+    next_steps: list[str] = Field(
         default_factory=list, description="Immediate next steps"
     )
 
@@ -72,6 +72,6 @@ class ProposalData(BaseModel):
         """Calculate total project duration in weeks."""
         return sum(phase.duration_weeks for phase in self.implementation_phases)
 
-    def get_phase_names(self) -> List[str]:
+    def get_phase_names(self) -> list[str]:
         """Get list of all phase names."""
         return [phase.name for phase in self.implementation_phases]

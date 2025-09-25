@@ -1,4 +1,3 @@
-from typing import List
 
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
@@ -110,7 +109,7 @@ class ProposalGenerator:
 
     def _generate_implementation_phases(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements
-    ) -> List[ImplementationPhase]:
+    ) -> list[ImplementationPhase]:
         """Generate implementation phases with activities and timelines."""
         prompt_template = PromptTemplate(
             input_variables=["company_name", "scope", "timeline", "technical_needs"],
@@ -169,7 +168,7 @@ class ProposalGenerator:
                 phases.append(phase)
 
             return phases
-        except Exception as e:
+        except Exception:
             # Fallback to a default structure if parsing fails
             return [
                 ImplementationPhase(
@@ -270,13 +269,12 @@ class ProposalGenerator:
 
     def _generate_next_steps(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements
-    ) -> List[str]:
+    ) -> list[str]:
         """Generate next steps for moving forward."""
-        basic_next_steps = [
+        return [
             "Review and approve this proposal",
             "Schedule a project kickoff meeting",
             "Finalize contract terms and timeline",
             "Begin Phase 1: Discovery & Planning",
         ]
 
-        return basic_next_steps

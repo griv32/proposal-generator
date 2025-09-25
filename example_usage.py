@@ -63,13 +63,13 @@ def main():
 
         if result["success"]:
             print("\nSuccess! Example proposal generated.")
-            print(f"Files created:")
+            print("Files created:")
             print(f"  - Markdown: {result['file_paths']['markdown']}")
             print(f"  - JSON: {result['file_paths']['json']}")
 
             # Show summary
             customer = result["customer_info"]
-            print(f"\nGenerated proposal for:")
+            print("\nGenerated proposal for:")
             print(f"  - Company: {customer.company_name}")
             print(f"  - Industry: {customer.industry}")
             print(f"  - Contact: {customer.contact_person}")

@@ -1,7 +1,7 @@
 """Test configuration and fixtures."""
 
 import os
-from typing import Any, Dict
+from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -96,7 +96,7 @@ def sample_transcript() -> str:
 
 
 @pytest.fixture
-def mock_openai_customer_response() -> Dict[str, Any]:
+def mock_openai_customer_response() -> dict[str, Any]:
     """Mock OpenAI API response for customer extraction."""
     return {
         "company_name": "Test Corp",
@@ -108,7 +108,7 @@ def mock_openai_customer_response() -> Dict[str, Any]:
 
 
 @pytest.fixture
-def mock_openai_requirements_response() -> Dict[str, Any]:
+def mock_openai_requirements_response() -> dict[str, Any]:
     """Mock OpenAI API response for requirements extraction."""
     return {
         "scope": "Modernize legacy systems and improve efficiency",

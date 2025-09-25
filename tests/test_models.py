@@ -1,6 +1,5 @@
 """Test cases for Pydantic data models."""
 
-from typing import List
 
 import pytest
 from pydantic import ValidationError
@@ -153,7 +152,7 @@ class TestProposalData:
         self,
         sample_customer_info: CustomerInfo,
         sample_project_requirements: ProjectRequirements,
-        sample_implementation_phases: List[ImplementationPhase],
+        sample_implementation_phases: list[ImplementationPhase],
     ):
         """Test creating ProposalData with valid nested models."""
         proposal = ProposalData(

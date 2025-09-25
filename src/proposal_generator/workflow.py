@@ -1,9 +1,8 @@
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from dotenv import load_dotenv
 
-from .models import ProposalData
 from .output_formatter import OutputFormatter
 from .proposal_generator import ProposalGenerator
 from .transcription_processor import TranscriptionProcessor
@@ -35,7 +34,7 @@ class ProposalWorkflow:
         transcript_text: str,
         output_folder: str = "./outputs",
         filename: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Process transcript text and generate proposal.
 
@@ -80,7 +79,7 @@ class ProposalWorkflow:
             )
 
             print("Step 5: Process complete!")
-            print(f"Files saved:")
+            print("Files saved:")
             print(f"  - Markdown: {file_paths['markdown']}")
             print(f"  - JSON: {file_paths['json']}")
 
@@ -103,7 +102,7 @@ class ProposalWorkflow:
         file_path: str,
         output_folder: str = "./outputs",
         filename: Optional[str] = None,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Process transcript from file and generate proposal.
 
@@ -122,7 +121,7 @@ class ProposalWorkflow:
 
             # Read transcript file
             print(f"Reading transcript from: {file_path}")
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 transcript_text = f.read().strip()
 
             if not transcript_text:

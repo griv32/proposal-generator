@@ -55,7 +55,7 @@ class TestProposalGenerator:
     def test_init_default_model(self):
         """Test ProposalGenerator initialization with default model."""
         with patch("proposal_generator.proposal_generator.ChatOpenAI") as mock_llm:
-            generator = ProposalGenerator()
+            ProposalGenerator()
 
             mock_llm.assert_called_once_with(model_name="gpt-4")
 
@@ -153,7 +153,7 @@ class TestProposalGenerator:
         mock_response.content = "Success vision content"
         generator.llm.invoke = MagicMock(return_value=mock_response)
 
-        result = generator._generate_success_vision(sample_customer, requirements)
+        generator._generate_success_vision(sample_customer, requirements)
 
         call_args = generator.llm.invoke.call_args[0][0]
         assert "Not specified" in call_args
@@ -298,7 +298,7 @@ class TestProposalGenerator:
         mock_response.content = "Investment summary content"
         generator.llm.invoke = MagicMock(return_value=mock_response)
 
-        result = generator._generate_investment_summary(sample_customer, requirements)
+        generator._generate_investment_summary(sample_customer, requirements)
 
         call_args = generator.llm.invoke.call_args[0][0]
         assert "Not specified" in call_args

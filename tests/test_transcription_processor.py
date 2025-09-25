@@ -60,7 +60,7 @@ class TestTranscriptionProcessor:
     def test_init_default_model(self):
         """Test TranscriptionProcessor initialization with default model."""
         with patch("proposal_generator.transcription_processor.ChatOpenAI") as mock_llm:
-            processor = TranscriptionProcessor()
+            TranscriptionProcessor()
 
             mock_llm.assert_called_once_with(model_name="gpt-4")
 

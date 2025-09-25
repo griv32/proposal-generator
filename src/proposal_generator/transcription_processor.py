@@ -1,4 +1,3 @@
-from typing import Any, Dict
 
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
@@ -54,10 +53,7 @@ class TranscriptionProcessor:
 
             # Extract JSON from response if it's wrapped in text
             json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
-            if json_match:
-                json_text = json_match.group(0)
-            else:
-                json_text = response_text
+            json_text = json_match.group(0) if json_match else response_text
 
             customer_data = json.loads(json_text)
 
@@ -70,7 +66,7 @@ class TranscriptionProcessor:
         except Exception as e:
             # Debug info for troubleshooting
             print(f"DEBUG: AI Response was: {response.content[:200]}...")
-            raise ValueError(f"Failed to parse customer information: {str(e)}")
+            raise ValueError(f"Failed to parse customer information: {str(e)}") from e
 
     def extract_project_requirements(
         self, transcript: str, customer_info: CustomerInfo
@@ -119,10 +115,7 @@ class TranscriptionProcessor:
 
             # Extract JSON from response if it's wrapped in text
             json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
-            if json_match:
-                json_text = json_match.group(0)
-            else:
-                json_text = response_text
+            json_text = json_match.group(0) if json_match else response_text
 
             requirements_data = json.loads(json_text)
 
@@ -138,4 +131,4 @@ class TranscriptionProcessor:
         except Exception as e:
             # Debug info for troubleshooting
             print(f"DEBUG: AI Response was: {response.content[:200]}...")
-            raise ValueError(f"Failed to parse project requirements: {str(e)}")
+            raise ValueError(f"Failed to parse project requirements: {str(e)}") from e

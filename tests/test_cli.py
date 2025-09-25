@@ -1,8 +1,7 @@
 """Test cases for CLI functionality."""
 
+import contextlib
 import os
-import tempfile
-from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -87,15 +86,17 @@ class TestMainFunction:
 
     def test_main_without_api_key(self, capsys):
         """Test main function without API key."""
-        with patch.dict(os.environ, {}, clear=True):
-            with patch("sys.argv", ["proposal-generator", "--input", "test.txt"]):
-                with patch("os.path.exists", return_value=True):
-                    with pytest.raises(SystemExit) as exc_info:
-                        main()
+        with (
+            patch.dict(os.environ, {}, clear=True),
+            patch("sys.argv", ["proposal-generator", "--input", "test.txt"]),
+            patch("os.path.exists", return_value=True),
+            pytest.raises(SystemExit) as exc_info,
+        ):
+            main()
 
-                    assert exc_info.value.code == 1
-                    captured = capsys.readouterr()
-                    assert "OPENAI_API_KEY" in captured.out
+        assert exc_info.value.code == 1
+        captured = capsys.readouterr()
+        assert "OPENAI_API_KEY" in captured.out
 
     @patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"})
     @patch("proposal_generator.cli.ProposalWorkflow")
@@ -212,11 +213,8 @@ class TestMainFunction:
             "gpt-3.5-turbo",
         ]
 
-        with patch("sys.argv", test_args):
-            try:
-                main()
-            except SystemExit:
-                pass
+        with patch("sys.argv", test_args), contextlib.suppress(SystemExit):
+            main()
 
         # Verify workflow was initialized with custom model
         mock_workflow.assert_called_once_with(model_name="gpt-3.5-turbo")

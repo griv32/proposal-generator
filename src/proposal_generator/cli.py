@@ -3,7 +3,6 @@
 import argparse
 import os
 import sys
-from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -92,14 +91,14 @@ def main() -> None:
 
         if result["success"]:
             print("\nSuccess! Proposal generated successfully.")
-            print(f"Files created:")
+            print("Files created:")
             print(f"  - Markdown: {result['file_paths']['markdown']}")
             print(f"  - JSON: {result['file_paths']['json']}")
 
             # Show summary
             if args.debug:
                 customer = result["customer_info"]
-                print(f"\nSummary:")
+                print("\nSummary:")
                 print(f"  - Company: {customer.company_name}")
                 print(f"  - Industry: {customer.industry}")
                 print(f"  - Contact: {customer.contact_person}")

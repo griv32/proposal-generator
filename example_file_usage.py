@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import sys
-from pathlib import Path
 
 from src.proposal_generator import ProposalWorkflow
 
@@ -19,8 +17,7 @@ def check_requirements():
         print("❌ OPENAI_API_KEY environment variable not set.")
         print("   Please set your OpenAI API key before running.")
         return False
-    else:
-        print("✅ OPENAI_API_KEY is set")
+    print("✅ OPENAI_API_KEY is set")
 
     # Check for sample transcript file
     sample_file = "./sample_data/sample_transcript.txt"
@@ -116,7 +113,7 @@ def main():
             print("=" * 50)
 
             # Show file locations
-            print(f"\n📁 Files created:")
+            print("\n📁 Files created:")
             print(f"   • Markdown: {result['file_paths']['markdown']}")
             print(f"   • JSON: {result['file_paths']['json']}")
 
@@ -124,21 +121,21 @@ def main():
             customer = result["customer_info"]
             requirements = result["requirements"]
 
-            print(f"\n📊 Proposal Summary:")
+            print("\n📊 Proposal Summary:")
             print(f"   • Company: {customer.company_name}")
             print(f"   • Industry: {customer.industry}")
             print(f"   • Contact: {customer.contact_person}")
             if customer.email:
                 print(f"   • Email: {customer.email}")
 
-            print(f"\n🔧 Project Details:")
+            print("\n🔧 Project Details:")
             print(f"   • Duration: {result['total_duration_weeks']} weeks")
             print(f"   • Phases: {len(result['proposal_data'].implementation_phases)}")
             if requirements.budget:
                 print(f"   • Budget: {requirements.budget}")
 
             # Show phase breakdown
-            print(f"\n📋 Implementation Phases:")
+            print("\n📋 Implementation Phases:")
             for i, phase in enumerate(result["proposal_data"].implementation_phases, 1):
                 print(f"   {i}. {phase.name} ({phase.duration_weeks} weeks)")
                 for activity in phase.activities[:2]:  # Show first 2 activities
@@ -148,7 +145,7 @@ def main():
                         f"      • ... and {len(phase.activities) - 2} more activities"
                     )
 
-            print(f"\n✅ Next Steps:")
+            print("\n✅ Next Steps:")
             for i, step in enumerate(result["proposal_data"].next_steps, 1):
                 print(f"   {i}. {step}")
 
@@ -160,13 +157,13 @@ def main():
         print("\n\n⚠️  Operation cancelled by user.")
         return
     except Exception as e:
-        print(f"\n❌ Unexpected error occurred:")
+        print("\n❌ Unexpected error occurred:")
         print(f"   Error: {str(e)}")
-        print(f"\n🔧 Troubleshooting:")
-        print(f"   • Ensure OPENAI_API_KEY is set correctly")
-        print(f"   • Check your internet connection")
-        print(f"   • Verify you have sufficient OpenAI API credits")
-        print(f"   • Try running the example again")
+        print("\n🔧 Troubleshooting:")
+        print("   • Ensure OPENAI_API_KEY is set correctly")
+        print("   • Check your internet connection")
+        print("   • Verify you have sufficient OpenAI API credits")
+        print("   • Try running the example again")
 
 
 def show_usage_guide():

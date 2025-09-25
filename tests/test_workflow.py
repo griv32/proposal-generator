@@ -1,8 +1,7 @@
 """Test cases for ProposalWorkflow functionality."""
 
 import os
-import tempfile
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import mock_open, patch
 
 import pytest
 
@@ -101,7 +100,7 @@ class TestProposalWorkflow:
             patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}),
         ):
 
-            workflow = ProposalWorkflow()
+            ProposalWorkflow()
 
             mock_tp.assert_called_once_with("gpt-4")
             mock_pg.assert_called_once_with("gpt-4")
@@ -110,13 +109,11 @@ class TestProposalWorkflow:
         """Test ProposalWorkflow initialization without API key."""
         with (
             patch("proposal_generator.workflow.load_dotenv"),
-            patch.dict(os.environ, {}, clear=True),
+            patch.dict(os.environ, {}, clear=True),pytest.raises(
+            ValueError, match="OPENAI_API_KEY environment variable is not set"
+        )
         ):
-
-            with pytest.raises(
-                ValueError, match="OPENAI_API_KEY environment variable is not set"
-            ):
-                ProposalWorkflow()
+            ProposalWorkflow()
 
     def test_check_api_key_present(self):
         """Test _check_api_key when API key is present."""
@@ -204,7 +201,7 @@ class TestProposalWorkflow:
             "json": "/path/to/proposal.json",
         }
 
-        result = workflow.process_transcript_text("test transcript")
+        workflow.process_transcript_text("test transcript")
 
         # Verify default parameters were passed
         workflow.output_formatter.save_outputs.assert_called_once_with(
@@ -263,7 +260,7 @@ class TestProposalWorkflow:
 
         # Verify file was read
         mock_file_data.assert_called_once_with(
-            "/path/to/transcript.txt", "r", encoding="utf-8"
+            "/path/to/transcript.txt", encoding="utf-8"
         )
 
         # Verify transcript content was passed to processor
@@ -314,7 +311,7 @@ class TestProposalWorkflow:
         """Test handling of file read errors."""
         with (
             patch("os.path.exists", return_value=True),
-            patch("builtins.open", side_effect=IOError("Permission denied")),
+            patch("builtins.open", side_effect=OSError("Permission denied")),
         ):
 
             result = workflow.process_transcript_file("/path/to/file.txt")
@@ -348,7 +345,7 @@ class TestProposalWorkflow:
             patch("os.path.exists", return_value=True),
         ):
 
-            result = workflow.process_transcript_file("/path/to/file.txt")
+            workflow.process_transcript_file("/path/to/file.txt")
 
         # Verify default parameters were used
         workflow.output_formatter.save_outputs.assert_called_once_with(

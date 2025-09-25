@@ -3,8 +3,6 @@
 import json
 import os
 import tempfile
-from pathlib import Path
-from unittest.mock import mock_open, patch
 
 import pytest
 
@@ -151,11 +149,11 @@ class TestOutputFormatter:
             assert json_path.endswith(".json")
 
             # Check file contents
-            with open(markdown_path, "r", encoding="utf-8") as f:
+            with open(markdown_path, encoding="utf-8") as f:
                 markdown_content = f.read()
             assert "# Business Proposal for Test Corp" in markdown_content
 
-            with open(json_path, "r", encoding="utf-8") as f:
+            with open(json_path, encoding="utf-8") as f:
                 json_content = json.load(f)
             assert json_content["customer_info"]["company_name"] == "Test Corp"
 

@@ -116,6 +116,10 @@ jobs:
     - name: Install UV
       uses: astral-sh/setup-uv@v2
 
+    - name: Install build dependencies
+      run: |
+        uv add --dev twine
+
     - name: Build package
       run: |
         uv build

@@ -25,22 +25,12 @@ Every generated proposal includes:
 
 ### 1. Download & Setup
 
-**Option A: Using UV (Recommended - Fastest)**
 ```bash
-# Install UV (if you don't have it)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Download and setup
+# Clone the repository
 git clone https://github.com/griv32/proposal-generator.git
 cd proposal-generator
-export OPENAI_API_KEY='your-openai-api-key'
-```
 
-**Option B: Using pip**
-```bash
-git clone https://github.com/griv32/proposal-generator.git
-cd proposal-generator
-pip install -e .
+# Set your OpenAI API key
 export OPENAI_API_KEY='your-openai-api-key'
 ```
 
@@ -58,13 +48,24 @@ We need better security and 99% uptime." > my_transcript.txt
 
 ### 3. Generate Your Proposal
 
-**Using UV:**
+**Option A: Using UV (Recommended - Fastest)**
 ```bash
+# Install dependencies and run - UV handles everything automatically
 uv run proposal-generator --input my_transcript.txt --output ./proposals
 ```
 
-**Using pip:**
+**Option B: Direct Runner (After dependency setup)**
 ```bash
+# First install dependencies
+uv sync
+# Then run directly
+uv run python proposal_generator.py --input my_transcript.txt --output ./proposals
+```
+
+**Option C: Traditional pip Installation**
+```bash
+# Install in development mode, then run
+pip install -e .
 proposal-generator --input my_transcript.txt --output ./proposals
 ```
 

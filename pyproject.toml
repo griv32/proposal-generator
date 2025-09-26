@@ -45,7 +45,7 @@ Repository = "https://github.com/griv32/proposal-generator.git"
 Issues = "https://github.com/griv32/proposal-generator/issues"
 
 [project.scripts]
-proposal-generator = "src.proposal_generator.cli:main"
+proposal-generator = "proposal_generator.cli:main"
 
 [project.optional-dependencies]
 dev = [

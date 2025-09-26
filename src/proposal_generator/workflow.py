@@ -21,7 +21,7 @@ class ProposalWorkflow:
         self.proposal_generator = ProposalGenerator(model_name)
         self.output_formatter = OutputFormatter()
 
-    def _check_api_key(self):
+    def _check_api_key(self) -> None:
         """Check if OpenAI API key is available."""
         if not os.getenv("OPENAI_API_KEY"):
             raise ValueError(

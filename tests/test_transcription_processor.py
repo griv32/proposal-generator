@@ -54,7 +54,7 @@ class TestTranscriptionProcessor:
             processor = TranscriptionProcessor("gpt-3.5-turbo")
 
             # Verify LLM was initialized correctly
-            mock_llm.assert_called_once_with(model_name="gpt-3.5-turbo")
+            mock_llm.assert_called_once_with(model="gpt-3.5-turbo")
             assert processor.llm.temperature == 0.3
 
     def test_init_default_model(self):
@@ -62,7 +62,7 @@ class TestTranscriptionProcessor:
         with patch("proposal_generator.transcription_processor.ChatOpenAI") as mock_llm:
             TranscriptionProcessor()
 
-            mock_llm.assert_called_once_with(model_name="gpt-4")
+            mock_llm.assert_called_once_with(model="gpt-4")
 
     def test_extract_customer_info_success(self, processor, mock_llm_response_customer):
         """Test successful customer information extraction."""

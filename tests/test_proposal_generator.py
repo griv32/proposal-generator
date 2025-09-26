@@ -49,7 +49,7 @@ class TestProposalGenerator:
         with patch("proposal_generator.proposal_generator.ChatOpenAI") as mock_llm:
             generator = ProposalGenerator("gpt-3.5-turbo")
 
-            mock_llm.assert_called_once_with(model_name="gpt-3.5-turbo")
+            mock_llm.assert_called_once_with(model="gpt-3.5-turbo")
             assert generator.llm.temperature == 0.2
 
     def test_init_default_model(self):
@@ -57,7 +57,7 @@ class TestProposalGenerator:
         with patch("proposal_generator.proposal_generator.ChatOpenAI") as mock_llm:
             ProposalGenerator()
 
-            mock_llm.assert_called_once_with(model_name="gpt-4")
+            mock_llm.assert_called_once_with(model="gpt-4")
 
     def test_generate_proposal_complete_flow(
         self, generator, sample_customer, sample_requirements

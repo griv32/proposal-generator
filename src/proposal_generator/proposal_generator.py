@@ -8,7 +8,7 @@ class ProposalGenerator:
     """Generates comprehensive business proposals using AI."""
 
     def __init__(self, model_name: str = "gpt-4"):
-        self.llm = ChatOpenAI(model_name=model_name)
+        self.llm = ChatOpenAI(model=model_name)
         self.llm.temperature = 0.2
 
     def generate_proposal(
@@ -72,7 +72,7 @@ class ProposalGenerator:
                 scope=requirements.scope,
             )
         )
-        return response.content.strip()
+        return str(response.content).strip()
 
     def _generate_success_vision(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements
@@ -104,7 +104,7 @@ class ProposalGenerator:
                 or "Not specified",
             )
         )
-        return response.content.strip()
+        return str(response.content).strip()
 
     def _generate_implementation_phases(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements
@@ -154,7 +154,7 @@ class ProposalGenerator:
         try:
             import json
 
-            phases_data = json.loads(response.content.strip())
+            phases_data = json.loads(str(response.content).strip())
 
             phases = []
             for phase_data in phases_data["phases"]:
@@ -232,7 +232,7 @@ class ProposalGenerator:
                 budget=requirements.budget or "Not specified",
             )
         )
-        return response.content.strip()
+        return str(response.content).strip()
 
     def _generate_roi_analysis(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements
@@ -264,7 +264,7 @@ class ProposalGenerator:
                 scope=requirements.scope,
             )
         )
-        return response.content.strip()
+        return str(response.content).strip()
 
     def _generate_next_steps(
         self, customer_info: CustomerInfo, requirements: ProjectRequirements

@@ -8,7 +8,7 @@ class TranscriptionProcessor:
     """Processes transcript text and extracts structured data using AI."""
 
     def __init__(self, model_name: str = "gpt-4"):
-        self.llm = ChatOpenAI(model_name=model_name)
+        self.llm = ChatOpenAI(model=model_name)
         self.llm.temperature = 0.3
 
     def extract_customer_info(self, transcript: str) -> CustomerInfo:
@@ -48,7 +48,7 @@ class TranscriptionProcessor:
             import json
             import re
 
-            response_text = response.content.strip()
+            response_text = str(response.content).strip()
 
             # Extract JSON from response if it's wrapped in text
             json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
@@ -64,7 +64,7 @@ class TranscriptionProcessor:
             return CustomerInfo(**customer_data)
         except Exception as e:
             # Debug info for troubleshooting
-            print(f"DEBUG: AI Response was: {response.content[:200]}...")
+            print(f"DEBUG: AI Response was: {str(response.content)[:200]}...")
             raise ValueError(f"Failed to parse customer information: {str(e)}") from e
 
     def extract_project_requirements(
@@ -110,7 +110,7 @@ class TranscriptionProcessor:
             import json
             import re
 
-            response_text = response.content.strip()
+            response_text = str(response.content).strip()
 
             # Extract JSON from response if it's wrapped in text
             json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
@@ -129,5 +129,5 @@ class TranscriptionProcessor:
             return ProjectRequirements(**requirements_data)
         except Exception as e:
             # Debug info for troubleshooting
-            print(f"DEBUG: AI Response was: {response.content[:200]}...")
+            print(f"DEBUG: AI Response was: {str(response.content)[:200]}...")
             raise ValueError(f"Failed to parse project requirements: {str(e)}") from e

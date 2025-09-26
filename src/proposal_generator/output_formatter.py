@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+from typing import Optional
 
 from jinja2 import Template
 
@@ -10,13 +11,13 @@ from .models import ProposalData
 class OutputFormatter:
     """Formats proposal data into various output formats using Jinja2 templates."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the formatter with default templates."""
         self.markdown_template = self._get_markdown_template()
         self.json_template = self._get_json_template()
 
     def format_markdown(
-        self, proposal_data: ProposalData, company_name: str = None
+        self, proposal_data: ProposalData, company_name: Optional[str] = None
     ) -> str:
         """Format proposal data as Markdown."""
         if company_name is None:
@@ -70,7 +71,7 @@ class OutputFormatter:
         self,
         proposal_data: ProposalData,
         output_folder: str = "./outputs",
-        filename: str = None,
+        filename: Optional[str] = None,
     ) -> dict[str, str]:
         """Save both Markdown and JSON outputs to files."""
         # Create output folder if it doesn't exist

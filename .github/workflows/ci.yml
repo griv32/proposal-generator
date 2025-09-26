@@ -77,7 +77,9 @@ jobs:
       run: uv run ruff check .
 
     - name: Run mypy
-      run: uv run mypy src/proposal_generator
+      run: |
+        uv run mypy src/proposal_generator
+        uv run mypy run_proposal_generator.py
 
   security:
     runs-on: ubuntu-latest

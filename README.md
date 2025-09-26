@@ -31,14 +31,14 @@ Every generated proposal includes:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Download and setup
-git clone https://github.com/yourusername/proposal-generator.git
+git clone https://github.com/griv32/proposal-generator.git
 cd proposal-generator
 export OPENAI_API_KEY='your-openai-api-key'
 ```
 
 **Option B: Using pip**
 ```bash
-git clone https://github.com/yourusername/proposal-generator.git
+git clone https://github.com/griv32/proposal-generator.git
 cd proposal-generator
 pip install -e .
 export OPENAI_API_KEY='your-openai-api-key'
@@ -265,8 +265,8 @@ Both files contain the complete proposal with all sections and can be easily sha
 
 ## Support & Contributing
 
-- **Report Issues**: [GitHub Issues](https://github.com/yourusername/proposal-generator/issues)
-- **Get Help**: [GitHub Discussions](https://github.com/yourusername/proposal-generator/discussions)
+- **Report Issues**: [GitHub Issues](https://github.com/griv32/proposal-generator/issues)
+- **Get Help**: [GitHub Discussions](https://github.com/griv32/proposal-generator/discussions)
 - **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md)
 - **License**: GPL v3
 

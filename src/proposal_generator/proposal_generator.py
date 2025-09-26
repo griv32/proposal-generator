@@ -1,4 +1,3 @@
-
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
@@ -277,4 +276,3 @@ class ProposalGenerator:
             "Finalize contract terms and timeline",
             "Begin Phase 1: Discovery & Planning",
         ]
-

@@ -109,9 +109,10 @@ class TestProposalWorkflow:
         """Test ProposalWorkflow initialization without API key."""
         with (
             patch("proposal_generator.workflow.load_dotenv"),
-            patch.dict(os.environ, {}, clear=True),pytest.raises(
-            ValueError, match="OPENAI_API_KEY environment variable is not set"
-        )
+            patch.dict(os.environ, {}, clear=True),
+            pytest.raises(
+                ValueError, match="OPENAI_API_KEY environment variable is not set"
+            ),
         ):
             ProposalWorkflow()
 

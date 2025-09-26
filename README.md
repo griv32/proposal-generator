@@ -59,7 +59,7 @@ uv run proposal-generator --input my_transcript.txt --output ./proposals
 # First install dependencies
 uv sync
 # Then run directly
-uv run python proposal_generator.py --input my_transcript.txt --output ./proposals
+uv run python run_proposal_generator.py --input my_transcript.txt --output ./proposals
 ```
 
 **Option C: Traditional pip Installation**
